@@ -1,0 +1,23 @@
+{
+  "name": "@kitzberger/ckeditor5-definitionlist",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src/definitionlist.svg"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "peerDependencies": {
+    "@ckeditor/ckeditor5-core": "^39.0.1",
+    "@ckeditor/ckeditor5-ui": "^39.0.1",
+    "@ckeditor/ckeditor5-engine": "^39.0.1",
+    "@ckeditor/ckeditor5-utils": "^39.0.1"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

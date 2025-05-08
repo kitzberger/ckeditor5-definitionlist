@@ -1,0 +1,21 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.pnpm-debug.log*
+
+# TypeScript
+*.tsbuildinfo
+
+# Editor preview or dev artifacts
+coverage/
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# CKEditor 5 development extras (optional)
+/.eslintcache
+/ckeditor5-temp/
