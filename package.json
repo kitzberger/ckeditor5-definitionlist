@@ -12,6 +12,7 @@
 	},
 	"scripts": {
 		"build": "vite build",
+		"watch": "vite build --watch",
 		"lint": "eslint 'src/**/*.{ts,tsx}'",
 		"lint:fix": "eslint 'src/**/*.{ts,tsx}' --fix"
 	},
