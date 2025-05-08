@@ -23,8 +23,8 @@ export default class DefinitionList extends Plugin {
 		editor.commands.add('indentDefinitionTerm', new AlterDefinitionListCommand(editor, 'forward'));
 		editor.commands.add('outdentDefinitionDescription', new AlterDefinitionListCommand(editor, 'backward'));
 
-		// Register the "descriptionList" button, so it can be displayed in the toolbar.
-		editor.ui.componentFactory.add('descriptionList', locale => {
+		// Register the "definitionList" button, so it can be displayed in the toolbar.
+		editor.ui.componentFactory.add('definitionList', locale => {
 			const view = new ButtonView(locale);
 
 			view.set({

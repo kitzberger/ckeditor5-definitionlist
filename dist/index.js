@@ -2032,7 +2032,7 @@ class eo extends ut {
   }
   init() {
     const t = this.editor, n = t.t;
-    t.model, this.defineSchema(), this.defineConverters(), t.commands.add("insertDefinitionList", new Zr(t)), t.commands.add("indentDefinitionTerm", new Le(t, "forward")), t.commands.add("outdentDefinitionDescription", new Le(t, "backward")), t.ui.componentFactory.add("descriptionList", (i) => {
+    t.model, this.defineSchema(), this.defineConverters(), t.commands.add("insertDefinitionList", new Zr(t)), t.commands.add("indentDefinitionTerm", new Le(t, "forward")), t.commands.add("outdentDefinitionDescription", new Le(t, "backward")), t.ui.componentFactory.add("definitionList", (i) => {
       const r = new Yr(i);
       r.set({
         label: n("Definition list"),
