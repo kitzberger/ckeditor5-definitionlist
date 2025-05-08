@@ -154,6 +154,12 @@ class InsertDefinitionListCommand extends Command {
 	public override execute(): void {
 		const editor = this.editor;
 		const model = editor.model;
+		const selection = model.document.selection;
+
+		const isInsideDefinitionList = !!selection.getFirstPosition()?.findAncestor('definitionList');
+		if (isInsideDefinitionList) {
+			return; // Prevent insertion if already inside a <dl>
+		}
 
 		model.change(writer => {
 			const dl = writer.createElement('definitionList');

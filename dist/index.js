@@ -395,13 +395,13 @@ function y(e) {
   }
   return "";
 }
-var St = /[\\^$.*+?()[\]{}|]/g, Dt = /^\[object .+?Constructor\]$/, Ot = Function.prototype, Pt = Object.prototype, Lt = Ot.toString, kt = Pt.hasOwnProperty, It = RegExp(
-  "^" + Lt.call(kt).replace(St, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$"
+var Dt = /[\\^$.*+?()[\]{}|]/g, St = /^\[object .+?Constructor\]$/, Ot = Function.prototype, Pt = Object.prototype, Lt = Ot.toString, kt = Pt.hasOwnProperty, It = RegExp(
+  "^" + Lt.call(kt).replace(Dt, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$"
 );
 function Ft(e) {
   if (!I(e) || At(e))
     return !1;
-  var t = Ue(e) ? It : Dt;
+  var t = Ue(e) ? It : St;
   return t.test(y(e));
 }
 function Vt(e, t) {
@@ -485,32 +485,32 @@ var Ke = Object.prototype, Zt = Ke.hasOwnProperty, Qt = Ke.propertyIsEnumerable,
 function tn() {
   return !1;
 }
-var He = typeof exports == "object" && exports && !exports.nodeType && exports, fe = He && typeof module == "object" && module && !module.nodeType && module, nn = fe && fe.exports === He, he = nn ? f.Buffer : void 0, rn = he ? he.isBuffer : void 0, We = rn || tn, on = "[object Arguments]", sn = "[object Array]", an = "[object Boolean]", cn = "[object Date]", ln = "[object Error]", dn = "[object Function]", un = "[object Map]", fn = "[object Number]", hn = "[object Object]", pn = "[object RegExp]", bn = "[object Set]", gn = "[object String]", mn = "[object WeakMap]", yn = "[object ArrayBuffer]", vn = "[object DataView]", _n = "[object Float32Array]", Tn = "[object Float64Array]", wn = "[object Int8Array]", xn = "[object Int16Array]", jn = "[object Int32Array]", $n = "[object Uint8Array]", An = "[object Uint8ClampedArray]", Cn = "[object Uint16Array]", En = "[object Uint32Array]", l = {};
-l[_n] = l[Tn] = l[wn] = l[xn] = l[jn] = l[$n] = l[An] = l[Cn] = l[En] = !0;
-l[on] = l[sn] = l[yn] = l[an] = l[vn] = l[cn] = l[ln] = l[dn] = l[un] = l[fn] = l[hn] = l[pn] = l[bn] = l[gn] = l[mn] = !1;
-function Sn(e) {
-  return k(e) && ze(e.length) && !!l[L(e)];
+var He = typeof exports == "object" && exports && !exports.nodeType && exports, fe = He && typeof module == "object" && module && !module.nodeType && module, nn = fe && fe.exports === He, he = nn ? f.Buffer : void 0, rn = he ? he.isBuffer : void 0, We = rn || tn, on = "[object Arguments]", sn = "[object Array]", an = "[object Boolean]", cn = "[object Date]", ln = "[object Error]", dn = "[object Function]", un = "[object Map]", fn = "[object Number]", hn = "[object Object]", pn = "[object RegExp]", bn = "[object Set]", gn = "[object String]", mn = "[object WeakMap]", yn = "[object ArrayBuffer]", vn = "[object DataView]", _n = "[object Float32Array]", Tn = "[object Float64Array]", wn = "[object Int8Array]", xn = "[object Int16Array]", jn = "[object Int32Array]", $n = "[object Uint8Array]", An = "[object Uint8ClampedArray]", Cn = "[object Uint16Array]", En = "[object Uint32Array]", d = {};
+d[_n] = d[Tn] = d[wn] = d[xn] = d[jn] = d[$n] = d[An] = d[Cn] = d[En] = !0;
+d[on] = d[sn] = d[yn] = d[an] = d[vn] = d[cn] = d[ln] = d[dn] = d[un] = d[fn] = d[hn] = d[pn] = d[bn] = d[gn] = d[mn] = !1;
+function Dn(e) {
+  return k(e) && ze(e.length) && !!d[L(e)];
 }
 function Z(e) {
   return function(t) {
     return e(t);
   };
 }
-var qe = typeof exports == "object" && exports && !exports.nodeType && exports, E = qe && typeof module == "object" && module && !module.nodeType && module, Dn = E && E.exports === qe, G = Dn && Be.process, x = function() {
+var qe = typeof exports == "object" && exports && !exports.nodeType && exports, E = qe && typeof module == "object" && module && !module.nodeType && module, Sn = E && E.exports === qe, G = Sn && Be.process, x = function() {
   try {
     var e = E && E.require && E.require("util").types;
     return e || G && G.binding && G.binding("util");
   } catch {
   }
-}(), pe = x && x.isTypedArray, On = pe ? Z(pe) : Sn, Pn = Object.prototype, Ln = Pn.hasOwnProperty;
+}(), pe = x && x.isTypedArray, On = pe ? Z(pe) : Dn, Pn = Object.prototype, Ln = Pn.hasOwnProperty;
 function kn(e, t) {
-  var n = J(e), i = !n && en(e), r = !n && !i && We(e), o = !n && !i && !r && On(e), s = n || i || r || o, u = s ? Yt(e.length, String) : [], c = u.length;
-  for (var d in e)
-    Ln.call(e, d) && !(s && // Safari 9 has enumerable `arguments.length` in strict mode.
-    (d == "length" || // Node.js 0.10 has enumerable non-index properties on buffers.
-    r && (d == "offset" || d == "parent") || // PhantomJS 2 has enumerable non-index properties on typed arrays.
-    o && (d == "buffer" || d == "byteLength" || d == "byteOffset") || // Skip index properties.
-    Rt(d, c))) && u.push(d);
+  var n = J(e), i = !n && en(e), r = !n && !i && We(e), o = !n && !i && !r && On(e), s = n || i || r || o, u = s ? Yt(e.length, String) : [], a = u.length;
+  for (var c in e)
+    Ln.call(e, c) && !(s && // Safari 9 has enumerable `arguments.length` in strict mode.
+    (c == "length" || // Node.js 0.10 has enumerable non-index properties on buffers.
+    r && (c == "offset" || c == "parent") || // PhantomJS 2 has enumerable non-index properties on typed arrays.
+    o && (c == "buffer" || c == "byteLength" || c == "byteOffset") || // Skip index properties.
+    Rt(c, a))) && u.push(c);
   return u;
 }
 function Xe(e, t) {
@@ -717,16 +717,16 @@ function $i(e, t, n) {
 function Ai(e) {
   return $i(e, Bn, ji);
 }
-var H = v(f, "DataView"), W = v(f, "Promise"), q = v(f, "Set"), ye = "[object Map]", Ci = "[object Object]", ve = "[object Promise]", _e = "[object Set]", Te = "[object WeakMap]", we = "[object DataView]", Ei = y(H), Si = y(P), Di = y(W), Oi = y(q), Pi = y(K), h = L;
+var H = v(f, "DataView"), W = v(f, "Promise"), q = v(f, "Set"), ye = "[object Map]", Ci = "[object Object]", ve = "[object Promise]", _e = "[object Set]", Te = "[object WeakMap]", we = "[object DataView]", Ei = y(H), Di = y(P), Si = y(W), Oi = y(q), Pi = y(K), h = L;
 (H && h(new H(new ArrayBuffer(1))) != we || P && h(new P()) != ye || W && h(W.resolve()) != ve || q && h(new q()) != _e || K && h(new K()) != Te) && (h = function(e) {
   var t = L(e), n = t == Ci ? e.constructor : void 0, i = n ? y(n) : "";
   if (i)
     switch (i) {
       case Ei:
         return we;
-      case Si:
-        return ye;
       case Di:
+        return ye;
+      case Si:
         return ve;
       case Oi:
         return _e;
@@ -807,9 +807,9 @@ var Ae = x && x.isMap, dr = Ae ? Z(Ae) : lr, ur = "[object Set]";
 function fr(e) {
   return k(e) && h(e) == ur;
 }
-var Ce = x && x.isSet, hr = Ce ? Z(Ce) : fr, Je = "[object Arguments]", pr = "[object Array]", br = "[object Boolean]", gr = "[object Date]", mr = "[object Error]", Ze = "[object Function]", yr = "[object GeneratorFunction]", vr = "[object Map]", _r = "[object Number]", Qe = "[object Object]", Tr = "[object RegExp]", wr = "[object Set]", xr = "[object String]", jr = "[object Symbol]", $r = "[object WeakMap]", Ar = "[object ArrayBuffer]", Cr = "[object DataView]", Er = "[object Float32Array]", Sr = "[object Float64Array]", Dr = "[object Int8Array]", Or = "[object Int16Array]", Pr = "[object Int32Array]", Lr = "[object Uint8Array]", kr = "[object Uint8ClampedArray]", Ir = "[object Uint16Array]", Fr = "[object Uint32Array]", a = {};
-a[Je] = a[pr] = a[Ar] = a[Cr] = a[br] = a[gr] = a[Er] = a[Sr] = a[Dr] = a[Or] = a[Pr] = a[vr] = a[_r] = a[Qe] = a[Tr] = a[wr] = a[xr] = a[jr] = a[Lr] = a[kr] = a[Ir] = a[Fr] = !0;
-a[mr] = a[Ze] = a[$r] = !1;
+var Ce = x && x.isSet, hr = Ce ? Z(Ce) : fr, Je = "[object Arguments]", pr = "[object Array]", br = "[object Boolean]", gr = "[object Date]", mr = "[object Error]", Ze = "[object Function]", yr = "[object GeneratorFunction]", vr = "[object Map]", _r = "[object Number]", Qe = "[object Object]", Tr = "[object RegExp]", wr = "[object Set]", xr = "[object String]", jr = "[object Symbol]", $r = "[object WeakMap]", Ar = "[object ArrayBuffer]", Cr = "[object DataView]", Er = "[object Float32Array]", Dr = "[object Float64Array]", Sr = "[object Int8Array]", Or = "[object Int16Array]", Pr = "[object Int32Array]", Lr = "[object Uint8Array]", kr = "[object Uint8ClampedArray]", Ir = "[object Uint16Array]", Fr = "[object Uint32Array]", l = {};
+l[Je] = l[pr] = l[Ar] = l[Cr] = l[br] = l[gr] = l[Er] = l[Dr] = l[Sr] = l[Or] = l[Pr] = l[vr] = l[_r] = l[Qe] = l[Tr] = l[wr] = l[xr] = l[jr] = l[Lr] = l[kr] = l[Ir] = l[Fr] = !0;
+l[mr] = l[Ze] = l[$r] = !1;
 function V(e, t, n, i, r, o) {
   var s;
   if (n && (s = r ? n(e, i, r, o) : n(e)), s !== void 0)
@@ -820,15 +820,15 @@ function V(e, t, n, i, r, o) {
   if (u)
     s = Ii(e);
   else {
-    var c = h(e), d = c == Ze || c == yr;
+    var a = h(e), c = a == Ze || a == yr;
     if (We(e))
       return vi(e);
-    if (c == Qe || c == Je || d && !r)
-      s = d ? {} : ar(e);
+    if (a == Qe || a == Je || c && !r)
+      s = c ? {} : ar(e);
     else {
-      if (!a[c])
+      if (!l[a])
         return r ? e : {};
-      s = sr(e, c);
+      s = sr(e, a);
     }
   }
   o || (o = new A());
@@ -854,14 +854,14 @@ function Br(e, t) {
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 const Mr = "http://www.w3.org/1999/xhtml";
-class S extends st() {
+class D extends st() {
   /**
    * Creates an instance of the {@link ~Template} class.
    *
    * @param def The definition of the template.
    */
   constructor(t) {
-    super(), Object.assign(this, Se(Ee(t))), this._isRendered = !1, this._revertData = null;
+    super(), Object.assign(this, De(Ee(t))), this._isRendered = !1, this._revertData = null;
   }
   /**
    * Renders a DOM Node (an HTML element or text) out of the template.
@@ -1099,7 +1099,7 @@ class S extends st() {
   static extend(t, n) {
     if (t._isRendered)
       throw new T("template-extend-render", [this, t]);
-    rt(t, Se(Ee(n)));
+    rt(t, De(Ee(n)));
   }
   /**
    * Renders a DOM Node (either an HTML element or text) out of the template.
@@ -1148,9 +1148,9 @@ class S extends st() {
       i && (i.attributes[r] = o);
       const u = Oe(s) ? s[0].ns : null;
       if (N(s)) {
-        const c = Oe(s) ? s[0].value : s;
-        i && Le(r) && c.unshift(o), this._bindToObservable({
-          schema: c,
+        const a = Oe(s) ? s[0].value : s;
+        i && Le(r) && a.unshift(o), this._bindToObservable({
+          schema: a,
           updater: Gr(n, r, u),
           data: t
         });
@@ -1158,8 +1158,8 @@ class S extends st() {
         this._renderStyleAttribute(s[0], t);
       else {
         i && o && Le(r) && s.unshift(o);
-        const c = s.map((d) => d && (d.value || d)).reduce((d, _) => d.concat(_), []).reduce(it, "");
-        j(c) || n.setAttributeNS(u, r, c);
+        const a = s.map((c) => c && (c.value || c)).reduce((c, _) => c.concat(_), []).reduce(it, "");
+        j(a) || n.setAttributeNS(u, r, a);
       }
     }
   }
@@ -1224,12 +1224,12 @@ class S extends st() {
       else if (Fe(s))
         i.appendChild(s);
       else if (r) {
-        const u = t.revertData, c = Pe();
-        u.children.push(c), s._renderNode({
+        const u = t.revertData, a = Pe();
+        u.children.push(a), s._renderNode({
           intoFragment: !1,
           node: i.childNodes[o++],
           isApplying: !0,
-          revertData: c
+          revertData: a
         });
       } else
         i.appendChild(s.render());
@@ -1413,7 +1413,7 @@ function Ee(e) {
       return n;
   });
 }
-function Se(e) {
+function De(e) {
   if (typeof e == "string" ? e = qr(e) : e.text && Xr(e), e.on && (e.eventListeners = Wr(e.on), delete e.on), !e.text) {
     e.attributes && Hr(e.attributes);
     const t = [];
@@ -1422,7 +1422,7 @@ function Se(e) {
         t.push(e.children);
       else
         for (const n of e.children)
-          ee(n) || B(n) || Fe(n) ? t.push(n) : t.push(new S(n));
+          ee(n) || B(n) || Fe(n) ? t.push(n) : t.push(new D(n));
     e.children = t;
   }
   return e;
@@ -1450,12 +1450,12 @@ function nt(e, t) {
 function it(e, t) {
   return j(t) ? e : j(e) ? t : `${e} ${t}`;
 }
-function De(e, t) {
+function Se(e, t) {
   for (const n in t)
     e[n] ? e[n].push(...t[n]) : e[n] = t[n];
 }
 function rt(e, t) {
-  if (t.attributes && (e.attributes || (e.attributes = {}), De(e.attributes, t.attributes)), t.eventListeners && (e.eventListeners || (e.eventListeners = {}), De(e.eventListeners, t.eventListeners)), t.text && e.text.push(...t.text), t.children && t.children.length) {
+  if (t.attributes && (e.attributes || (e.attributes = {}), Se(e.attributes, t.attributes)), t.eventListeners && (e.eventListeners || (e.eventListeners = {}), Se(e.eventListeners, t.eventListeners)), t.text && e.text.push(...t.text), t.children && t.children.length) {
     if (e.children.length != t.children.length)
       throw new T("ui-template-extend-children-mismatch", e);
     let n = 0;
@@ -1467,10 +1467,10 @@ function j(e) {
   return !e && e !== 0;
 }
 function B(e) {
-  return e instanceof D;
+  return e instanceof S;
 }
 function ee(e) {
-  return e instanceof S;
+  return e instanceof D;
 }
 function te(e) {
   return e instanceof Ne;
@@ -1492,7 +1492,7 @@ function Le(e) {
  * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
-class D extends at(X()) {
+class S extends at(X()) {
   /**
    * Creates an instance of the {@link module:ui/view~View} class.
    *
@@ -1549,7 +1549,7 @@ class D extends at(X()) {
    * ```
    */
   get bindTemplate() {
-    return this._bindTemplate ? this._bindTemplate : this._bindTemplate = S.bind(this, this);
+    return this._bindTemplate ? this._bindTemplate : this._bindTemplate = D.bind(this, this);
   }
   /**
    * Creates a new collection of views, which can be used as
@@ -1679,7 +1679,7 @@ class D extends at(X()) {
    * @param definition Definition of view's template.
    */
   setTemplate(t) {
-    this.template = new S(t);
+    this.template = new D(t);
   }
   /**
    * {@link module:ui/template~Template.extend Extends} the {@link #template} of the view with
@@ -1696,7 +1696,7 @@ class D extends at(X()) {
    * @param definition Definition which extends the {@link #template}.
    */
   extendTemplate(t) {
-    S.extend(this.template, t);
+    D.extend(this.template, t);
   }
   /**
    * Recursively renders the view.
@@ -1778,7 +1778,7 @@ class D extends at(X()) {
  * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
-class R extends D {
+class R extends S {
   /**
    * @inheritDoc
    */
@@ -1901,7 +1901,7 @@ R.presentationalAttributeNames = [
  * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
-class Yr extends D {
+class Yr extends S {
   /**
    * @inheritDoc
    */
@@ -1972,7 +1972,7 @@ class Yr extends D {
    * Creates a label view instance and binds it with button attributes.
    */
   _createLabelView() {
-    const t = new D(), n = this.bindTemplate;
+    const t = new S(), n = this.bindTemplate;
     return t.setTemplate({
       tag: "span",
       attributes: {
@@ -1995,7 +1995,7 @@ class Yr extends D {
    * and binds it with button attributes.
    */
   _createKeystrokeView() {
-    const t = new D();
+    const t = new S();
     return t.setTemplate({
       tag: "span",
       attributes: {
@@ -2033,7 +2033,7 @@ class eo extends ut {
   }
   init() {
     const t = this.editor, n = t.t;
-    t.model, this.defineSchema(), this.defineConverters(), t.commands.add("insertDefinitionList", new Zr(t)), t.commands.add("indentDefinitionTerm", new ke(t, "forward")), t.commands.add("outdentDefinitionDescription", new ke(t, "backward")), t.ui.componentFactory.add("definitionList", (i) => {
+    this.defineSchema(), this.defineConverters(), t.commands.add("insertDefinitionList", new Zr(t)), t.commands.add("indentDefinitionTerm", new ke(t, "forward")), t.commands.add("outdentDefinitionDescription", new ke(t, "backward")), t.ui.componentFactory.add("definitionList", (i) => {
       const r = new Yr(i);
       r.set({
         label: n("Definition list"),
@@ -2103,10 +2103,11 @@ class Zr extends Ve {
     super(t), this.value = !1;
   }
   execute() {
+    var o;
     const n = this.editor.model;
-    n.change((i) => {
-      const r = i.createElement("definitionList"), o = i.createElement("definitionTerm"), s = i.createElement("definitionDescription");
-      i.insertText("Term", o), i.insertText("Definition", s), i.append(o, r), i.append(s, r), n.insertContent(r), i.setSelection(o, "end");
+    (o = n.document.selection.getFirstPosition()) != null && o.findAncestor("definitionList") || n.change((s) => {
+      const u = s.createElement("definitionList"), a = s.createElement("definitionTerm"), c = s.createElement("definitionDescription");
+      s.insertText("Term", a), s.insertText("Definition", c), s.append(a, u), s.append(c, u), n.insertContent(u), s.setSelection(a, "end");
     });
   }
   refresh() {
@@ -2129,11 +2130,11 @@ class ke extends Ve {
   }
   _transformElement(t, n, i) {
     const r = this.editor.model, s = r.document.selection.getFirstPosition(), u = s == null ? void 0 : s.parent;
-    return u != null && u.is("element", t) ? (r.change((c) => {
-      const d = c.createElement(n);
-      c.insert(d, u, "after");
-      const _ = c.createRangeIn(u);
-      c.move(_, c.createPositionAt(d, 0)), c.remove(u), c.setSelection(d, "in");
+    return u != null && u.is("element", t) ? (r.change((a) => {
+      const c = a.createElement(n);
+      a.insert(c, u, "after");
+      const _ = a.createRangeIn(u);
+      a.move(_, a.createPositionAt(c, 0)), a.remove(u), a.setSelection(c, "in");
     }), i(), !0) : !1;
   }
 }
