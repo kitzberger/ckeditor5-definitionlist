@@ -4,7 +4,7 @@ import MultiCommand from '@ckeditor/ckeditor5-core/src/multicommand';
 import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
 import type { Editor } from '@ckeditor/ckeditor5-core';
 
-import definitionListIcon from './definitionlist.svg';
+import definitionListIcon from './icon.svg';
 
 export default class DefinitionList extends Plugin {
 	public static get pluginName() {
