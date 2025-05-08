@@ -14,7 +14,6 @@ export default class DefinitionList extends Plugin {
 	public init(): void {
 		const editor = this.editor;
 		const t = editor.t;
-		const model = editor.model;
 
 		this.defineSchema();
 		this.defineConverters();
