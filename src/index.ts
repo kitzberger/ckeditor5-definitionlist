@@ -1,4 +1,8 @@
-import DefinitionList from './definitionlist.js';
+import ckeditor from './../theme/icons/ckeditor.svg';
+import './augmentation.js';
 
-export default DefinitionList;
-export { DefinitionList };
+export { default as DefinitionList } from './definitionlist.js';
+
+export const icons = {
+	ckeditor
+};
