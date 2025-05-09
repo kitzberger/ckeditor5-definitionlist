@@ -52,21 +52,23 @@ export default class DefinitionList extends Plugin {
 			// Priority is high due to integration with `IndentBlock` plugin. We want to indent list first and if it's not possible
 			// user can indent content with `IndentBlock` plugin.
 			indent.registerChildCommand(commands.get('indentDefinitionTerm')!, { priority: 'high' });
-		} else {
-			// this.editor.keystrokes.set('Shift+Tab', (keyEvtData, cancel) => {
-			// 	return this._transformElement('definitionDescription', 'definitionTerm', cancel);
-			// });
 		}
+
+		this.editor.keystrokes.set('Tab', (keyEvtData, cancel) => {
+			editor.execute('indentDefinitionTerm');
+			cancel();
+		});
 
 		if (outdent) {
 			// Priority is lowest due to integration with `IndentBlock` and `IndentCode` plugins.
 			// First we want to allow user to outdent all indendations from other features then he can oudent list item.
 			outdent.registerChildCommand(commands.get('outdentDefinitionDescription')!, { priority: 'lowest' });
-		} else {
-			// this.editor.keystrokes.set('Tab', (keyEvtData, cancel) => {
-			// 	return this._transformElement('definitionTerm', 'definitionDescription', cancel);
-			// });
 		}
+
+		this.editor.keystrokes.set('Shift+Tab', (keyEvtData, cancel) => {
+			editor.execute('outdentDefinitionDescription');
+			cancel();
+		});
 
 		editor.editing.view.document.on('keydown', (evt, data) => {
 			const selection = doc.selection;
