@@ -1,10 +1,6 @@
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
-import Command from '@ckeditor/ckeditor5-core/src/command';
-import MultiCommand from '@ckeditor/ckeditor5-core/src/multicommand';
-import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
-import type { Editor } from '@ckeditor/ckeditor5-core';
+import { Plugin, ButtonView, Command, type MultiCommand, type Editor } from 'ckeditor5';
 
-import definitionListIcon from './icon.svg?raw';
+import definitionListIcon from './icon.svg';
 
 export default class DefinitionList extends Plugin {
 	public static get pluginName() {
@@ -41,7 +37,7 @@ export default class DefinitionList extends Plugin {
 			});
 
 			return view;
-		} );
+		});
 	}
 
 	public afterInit(): void {
@@ -49,23 +45,23 @@ export default class DefinitionList extends Plugin {
 		const commands = editor.commands;
 		const model = editor.model;
 		const doc = model.document;
-		const indent = commands.get( 'indent' ) as MultiCommand;
-		const outdent = commands.get( 'outdent' ) as MultiCommand;
+		const indent = commands.get('indent') as MultiCommand;
+		const outdent = commands.get('outdent') as MultiCommand;
 
-		if ( indent ) {
+		if (indent) {
 			// Priority is high due to integration with `IndentBlock` plugin. We want to indent list first and if it's not possible
 			// user can indent content with `IndentBlock` plugin.
-			indent.registerChildCommand( commands.get( 'indentDefinitionTerm' )!, { priority: 'high' } );
+			indent.registerChildCommand(commands.get('indentDefinitionTerm')!, { priority: 'high' });
 		} else {
 			// this.editor.keystrokes.set('Shift+Tab', (keyEvtData, cancel) => {
 			// 	return this._transformElement('definitionDescription', 'definitionTerm', cancel);
 			// });
 		}
 
-		if ( outdent ) {
+		if (outdent) {
 			// Priority is lowest due to integration with `IndentBlock` and `IndentCode` plugins.
 			// First we want to allow user to outdent all indendations from other features then he can oudent list item.
-			outdent.registerChildCommand( commands.get( 'outdentDefinitionDescription' )!, { priority: 'lowest' } );
+			outdent.registerChildCommand(commands.get('outdentDefinitionDescription')!, { priority: 'lowest' });
 		} else {
 			// this.editor.keystrokes.set('Tab', (keyEvtData, cancel) => {
 			// 	return this._transformElement('definitionTerm', 'definitionDescription', cancel);
@@ -81,7 +77,7 @@ export default class DefinitionList extends Plugin {
 			if ((data.domEvent.key === 'Enter' || data.domEvent.key === 'ArrowDown') && parent?.is('element', 'definitionDescription')) {
 				const dl = parent.findAncestor('definitionList');
 				const isLastChild = dl?.getChild(dl.childCount - 1) === parent;
-				const isAtEnd = position.isAtEnd;
+				const isAtEnd = position?.isAtEnd;
 
 				if (dl && isLastChild && isAtEnd) {
 					data.preventDefault();
@@ -98,7 +94,7 @@ export default class DefinitionList extends Plugin {
 			if (data.domEvent.key === 'ArrowUp' && parent?.is('element', 'definitionTerm')) {
 				const dl = parent.findAncestor('definitionList');
 				const isFirstChild = dl?.getChild(0) === parent;
-				const isAtStart = position.isAtStart;
+				const isAtStart = position?.isAtStart;
 
 				if (dl && isFirstChild && isAtStart) {
 					data.preventDefault();
@@ -230,13 +226,12 @@ class InsertDefinitionListCommand extends Command {
 }
 
 class AlterDefinitionListCommand extends Command {
-
 	private readonly _direction: 'forward' | 'backward';
 	private readonly _source: 'definitionTerm' | 'definitionDescription';
 	private readonly _target: 'definitionTerm' | 'definitionDescription';
 
-	public constructor( editor: Editor, indentDirection: 'forward' | 'backward'  ) {
-		super( editor );
+	public constructor(editor: Editor, indentDirection: 'forward' | 'backward') {
+		super(editor);
 		this._direction = indentDirection;
 		this._source = this._direction === 'forward' ? 'definitionTerm' : 'definitionDescription';
 		this._target = this._direction === 'backward' ? 'definitionTerm' : 'definitionDescription';
@@ -251,7 +246,7 @@ class AlterDefinitionListCommand extends Command {
 	}
 
 	public override execute(): void {
-		this._transformElement(this._source, this._target, () => {})
+		this._transformElement(this._source, this._target, () => {});
 	}
 
 	private _transformElement(from: string, to: string, cancel: () => void): boolean {
