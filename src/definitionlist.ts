@@ -73,6 +73,60 @@ export default class DefinitionList extends Plugin {
 			const position = selection.getFirstPosition();
 			const parent = position?.parent;
 
+			// Handle Delete at the end of a <dd>
+			if (
+				data.domEvent.key === 'Delete' &&
+				parent?.is('element', 'definitionDescription') &&
+				position?.isAtEnd
+			) {
+				const next = parent.nextSibling;
+
+				if (next?.is('element', 'definitionDescription')) {
+					evt.stop();
+					data.preventDefault();
+
+					model.change(writer => {
+						// Move contents of next <dd> into current <dd>
+						const range = writer.createRangeIn(next);
+						const insertPos = writer.createPositionAt(parent, 'end');
+						writer.move(range, insertPos);
+
+						// Remove the now-empty <dd>
+						writer.remove(next);
+
+						// Reselect at end of merged content
+						writer.setSelection(insertPos);
+					});
+				}
+			}
+
+			// Handle Backspace at the beginning of a <dd>
+			if (
+				data.domEvent.key === 'Backspace' &&
+				parent?.is('element', 'definitionDescription') &&
+				position?.isAtStart
+			) {
+				const previous = parent.previousSibling;
+
+				if (previous?.is('element', 'definitionDescription')) {
+					evt.stop();
+					data.preventDefault();
+
+					model.change(writer => {
+						// Move contents of current <dd> into the previous <dd>
+						const range = writer.createRangeIn(parent);
+						const insertPos = writer.createPositionAt(previous, 'end');
+						writer.move(range, insertPos);
+
+						// Remove the now-empty <dd>
+						writer.remove(parent);
+
+						// Set selection to end of merged content
+						writer.setSelection(insertPos);
+					});
+				}
+			}
+
 			// ⬇ Handle Enter or ↓ at end of last <dd>
 			if ((data.domEvent.key === 'Enter' || data.domEvent.key === 'ArrowDown') && parent?.is('element', 'definitionDescription')) {
 				const dl = parent.findAncestor('definitionList');
