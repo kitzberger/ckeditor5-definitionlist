@@ -130,19 +130,21 @@ export default class DefinitionList extends Plugin {
 			}
 
 			// ⬇ Handle Enter or ↓ at end of last <dd>
-			if ((data.domEvent.key === 'Enter' || data.domEvent.key === 'ArrowDown') && parent?.is('element', 'definitionDescription')) {
-				const dl = parent.findAncestor('definitionList');
-				const isLastChild = dl?.getChild(dl.childCount - 1) === parent;
-				const isAtEnd = position?.isAtEnd;
+			if ((data.domEvent.key === 'Enter' && data.domEvent.shiftKey === false) || data.domEvent.key === 'ArrowDown') {
+				if (parent?.is('element', 'definitionDescription')) {
+					const dl = parent.findAncestor('definitionList');
+					const isLastChild = dl?.getChild(dl.childCount - 1) === parent;
+					const isAtEnd = position?.isAtEnd;
 
-				if (dl && isLastChild && isAtEnd) {
-					data.preventDefault();
-					evt.stop();
-					model.change(writer => {
-						const paragraph = writer.createElement('paragraph');
-						writer.insert(paragraph, model.createPositionAfter(dl));
-						writer.setSelection(paragraph, 'in');
-					});
+					if (dl && isLastChild && isAtEnd) {
+						data.preventDefault();
+						evt.stop();
+						model.change(writer => {
+							const paragraph = writer.createElement('paragraph');
+							writer.insert(paragraph, model.createPositionAfter(dl));
+							writer.setSelection(paragraph, 'in');
+						});
+					}
 				}
 			}
 
