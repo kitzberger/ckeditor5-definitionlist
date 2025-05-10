@@ -173,7 +173,8 @@ export default class DefinitionList extends Plugin {
 		schema.register('definitionList', {
 			allowWhere: '$block',
 			allowContentOf: '$block',
-			isBlock: true
+			isBlock: true,
+			allowAttributes: ['class']
 		});
 
 		schema.register('definitionTerm', {
@@ -194,7 +195,11 @@ export default class DefinitionList extends Plugin {
 
 		conversion.for('upcast').elementToElement({
 			view: 'dl',
-			model: 'definitionList'
+			model: (viewElement, { writer }) => {
+				const className = viewElement.getAttribute('class');
+				const attributes = className ? { class: className } : {};
+				return writer.createElement('definitionList', attributes);
+			}
 		});
 
 		conversion.for('upcast').elementToElement({
@@ -209,7 +214,11 @@ export default class DefinitionList extends Plugin {
 
 		conversion.for('dataDowncast').elementToElement({
 			model: 'definitionList',
-			view: 'dl'
+			view: (modelElement, { writer }) => {
+				const className = modelElement.getAttribute('class');
+				const attributes = className ? { class: className } : {};
+				return writer.createContainerElement('dl', attributes);
+			}
 		});
 
 		conversion.for('dataDowncast').elementToElement({
@@ -224,7 +233,11 @@ export default class DefinitionList extends Plugin {
 
 		conversion.for('editingDowncast').elementToElement({
 			model: 'definitionList',
-			view: (modelElement, { writer }) => writer.createContainerElement('dl')
+			view: (modelElement, { writer }) => {
+				const className = modelElement.getAttribute('class');
+				const attributes = className ? { class: className } : {};
+				return writer.createContainerElement('dl', attributes);
+			}
 		});
 
 		conversion.for('editingDowncast').elementToElement({

@@ -32,7 +32,8 @@ module.exports = {
 				extensions: [ '.ts', '.js', '.json' ]
 			}
 		],
-		'space-in-parens': ['error', 'never']
+		'space-in-parens': ['error', 'never'],
+		'array-bracket-spacing': ['error', 'never'],
 	},
 	overrides: [
 		{
