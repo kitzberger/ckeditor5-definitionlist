@@ -13,6 +13,7 @@ import {
 	Code,
 	CodeBlock,
 	Essentials,
+	GeneralHtmlSupport,
 	Heading,
 	Image,
 	ImageCaption,
@@ -25,6 +26,7 @@ import {
 	List,
 	MediaEmbed,
 	Paragraph,
+	Style,
 	Table,
 	TableToolbar
 } from 'ckeditor5';
@@ -44,6 +46,7 @@ ClassicEditor
 			Autoformat,
 			BlockQuote,
 			Bold,
+			GeneralHtmlSupport,
 			Heading,
 			Image,
 			ImageCaption,
@@ -56,6 +59,7 @@ ClassicEditor
 			List,
 			MediaEmbed,
 			Paragraph,
+			Style,
 			Table,
 			TableToolbar,
 			CodeBlock,
@@ -69,6 +73,7 @@ ClassicEditor
 			'definitionList',
 			'|',
 			'heading',
+			'style',
 			'|',
 			'bold',
 			'italic',
@@ -100,6 +105,40 @@ ClassicEditor
 				'tableColumn',
 				'tableRow',
 				'mergeTableCells'
+			]
+		},
+		style: {
+			definitions: [
+				{
+					name: 'Fancy headline',
+					element: 'h3',
+					classes: ['fancy']
+				},
+				{
+					name: 'Gray box',
+					element: 'p',
+					classes: ['gray']
+				},
+				{
+					name: 'Green DL',
+					element: 'dl',
+					classes: ['green']
+				},
+				{
+					name: 'Red DL',
+					element: 'dl',
+					classes: ['red']
+				},
+				{
+					name: 'Red DT',
+					element: 'dt',
+					classes: ['red']
+				},
+				{
+					name: 'Blue DT',
+					element: 'dt',
+					classes: ['blue']
+				}
 			]
 		}
 	})
