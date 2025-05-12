@@ -1,4 +1,5 @@
-import { Plugin, ButtonView, Command, type MultiCommand, type Editor } from 'ckeditor5';
+import { Plugin, ButtonView, Command, StyleUtils, type MultiCommand, type Editor } from 'ckeditor5';
+import { updateViewAttributes } from '@ckeditor/ckeditor5-html-support/src/utils.js';
 
 import definitionListIcon from './icon.svg';
 
@@ -38,6 +39,45 @@ export default class DefinitionList extends Plugin {
 
 			return view;
 		});
+
+		if (this.editor.plugins.has('StyleUtils')) {
+			const _styleUtils = editor.plugins.get(StyleUtils);
+			this.listenTo(_styleUtils, 'isStyleEnabledForBlock', (evt, [definition, block]) => {
+				// console.log('isStyleEnabledForBlock(' + definition.element + ')');
+				if (block.is('element', 'definitionList') && definition.element === 'dl' ||
+					block.is('element', 'definitionTerm') && definition.element === 'dt' ||
+					block.is('element', 'definitionDescription') && definition.element === 'dd') {
+					evt.return = true;
+					evt.stop();
+				}
+			}, { priority: 'high' });
+
+			this.listenTo(_styleUtils, 'isStyleActiveForBlock', (evt, [definition, block]) => {
+				// console.log('isStyleActiveForBlock(' + definition.element + ')');
+				if (
+					(
+						block.is('element', 'definitionList') && definition.element === 'dl' ||
+						block.is('element', 'definitionTerm') && definition.element === 'dt' ||
+						block.is('element', 'definitionDescription') && definition.element === 'dd'
+					) &&
+					block.getAttribute('class')?.split(' ').includes(definition.classes[0])
+				) {
+					evt.return = true;
+					evt.stop();
+				}
+			}, { priority: 'high' });
+
+			this.listenTo(_styleUtils, 'getAffectedBlocks', (evt, [definition, block]) => {
+				// console.log('getAffectedBlocks(' + definition.element + ')');
+				if (block.is('element', 'definitionList') && definition.element === 'dl' ||
+					block.is('element', 'definitionTerm') && definition.element === 'dt' ||
+					block.is('element', 'definitionDescription') && definition.element === 'dd'
+				) {
+					evt.return = [block];
+					evt.stop();
+				}
+			}, { priority: 'high' });
+		}
 	}
 
 	public afterInit(): void {
@@ -174,19 +214,24 @@ export default class DefinitionList extends Plugin {
 			allowWhere: '$block',
 			allowContentOf: '$block',
 			isBlock: true,
-			allowAttributes: ['class']
+			isObject: true,
+			allowAttributes: ['htmlDlAttributes']
 		});
 
 		schema.register('definitionTerm', {
 			allowIn: 'definitionList',
 			allowContentOf: '$block',
-			isBlock: true
+			isBlock: true,
+			isObject: true,
+			allowAttributes: ['htmlDtAttributes']
 		});
 
 		schema.register('definitionDescription', {
 			allowIn: 'definitionList',
 			allowContentOf: '$block',
-			isBlock: true
+			isBlock: true,
+			isObject: true,
+			allowAttributes: ['htmlDdAttributes']
 		});
 	}
 
@@ -195,11 +240,7 @@ export default class DefinitionList extends Plugin {
 
 		conversion.for('upcast').elementToElement({
 			view: 'dl',
-			model: (viewElement, { writer }) => {
-				const className = viewElement.getAttribute('class');
-				const attributes = className ? { class: className } : {};
-				return writer.createElement('definitionList', attributes);
-			}
+			model: 'definitionList'
 		});
 
 		conversion.for('upcast').elementToElement({
@@ -214,11 +255,7 @@ export default class DefinitionList extends Plugin {
 
 		conversion.for('dataDowncast').elementToElement({
 			model: 'definitionList',
-			view: (modelElement, { writer }) => {
-				const className = modelElement.getAttribute('class');
-				const attributes = className ? { class: className } : {};
-				return writer.createContainerElement('dl', attributes);
-			}
+			view: 'dl'
 		});
 
 		conversion.for('dataDowncast').elementToElement({
@@ -233,21 +270,44 @@ export default class DefinitionList extends Plugin {
 
 		conversion.for('editingDowncast').elementToElement({
 			model: 'definitionList',
-			view: (modelElement, { writer }) => {
-				const className = modelElement.getAttribute('class');
-				const attributes = className ? { class: className } : {};
-				return writer.createContainerElement('dl', attributes);
-			}
+			view: 'dl'
 		});
 
 		conversion.for('editingDowncast').elementToElement({
 			model: 'definitionTerm',
-			view: (modelElement, { writer }) => writer.createEditableElement('dt')
+			view: 'dt'
 		});
 
 		conversion.for('editingDowncast').elementToElement({
 			model: 'definitionDescription',
-			view: (modelElement, { writer }) => writer.createEditableElement('dd')
+			view: 'dd'
+		});
+
+		conversion.for('downcast').add(dispatcher => {
+			const eventNames = [
+				'attribute:htmlDlAttributes',
+				'attribute:htmlDtAttributes',
+				'attribute:htmlDdAttributes'
+			];
+			eventNames.forEach(eventName => {
+				dispatcher.on(eventName, (evt, data, conversionApi) => {
+					// Tell the conversion API we're handling this attribute conversion
+					// so nothing else tries to do something with it.
+					if (!conversionApi.consumable.consume(data.item, evt.name)) {
+						return;
+					}
+
+					const { attributeOldValue, attributeNewValue } = data;
+					const viewCodeElement = conversionApi.mapper.toViewElement(data.item);
+
+					updateViewAttributes(
+						conversionApi.writer,
+						attributeOldValue,
+						attributeNewValue,
+						viewCodeElement
+					);
+				});
+			});
 		});
 	}
 }

@@ -34,6 +34,7 @@ module.exports = {
 		],
 		'space-in-parens': ['error', 'never'],
 		'array-bracket-spacing': ['error', 'never'],
+		'computed-property-spacing': ['error', 'never'],
 	},
 	overrides: [
 		{
