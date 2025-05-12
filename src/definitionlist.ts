@@ -1,5 +1,5 @@
 import { Plugin, ButtonView, Command, StyleUtils, type MultiCommand, type Editor } from 'ckeditor5';
-import { updateViewAttributes } from '@ckeditor/ckeditor5-html-support/src/utils.js';
+import { updateViewAttributesDefinitionListPlugin as updateViewAttributes } from './utils.js';
 
 import definitionListIcon from './icon.svg';
 
