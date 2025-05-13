@@ -390,7 +390,21 @@ class InsertDefinitionListCommand extends Command {
 			const dt = writer.createElement('definitionTerm');
 			const dd = writer.createElement('definitionDescription');
 
-			writer.insertText('Term', dt);
+			let selectedText = '';
+			for (const range of selection.getRanges()) {
+				for (const item of range.getItems()) {
+					if (item.is('$textProxy')) {
+						selectedText += item.data;
+					}
+				}
+			}
+
+			if (selectedText) {
+				writer.insertText(selectedText, dt);
+				model.deleteContent(selection);
+			} else {
+				writer.insertText('Term', dt);
+			}
 			writer.insertText('Definition', dd);
 
 			writer.append(dt, dl);
